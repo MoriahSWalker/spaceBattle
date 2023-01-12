@@ -7,10 +7,17 @@ class Ship {
     this.accuracy = accuracy;
   }
   ussAttack(alien) {
-    // lower alien hitpoint by myShip.firepower
-    console.log(alien);
-    alien.hull -= myShip.firepower;
-    console.log(alien);
+    if (Math.random() < this.accuracy) {
+      alien.hull -= this.firepower;
+      // console.log(newHull + alien.name);
+    }
+    // console.log(alien.name + " You've been hit! - 5 hull points")
+  }
+
+  alienAttack(myShipObject) {
+    if (Math.random() < this.accuracy) {
+      myShipObject.hull -= this.firepower;
+    }
   }
 }
 
@@ -18,7 +25,7 @@ class Ship {
 let myShip = new Ship("USS HelloWorld", 20, 5, 0.7);
 // console.log(myShip)
 
-// fuctions for random numbers
+// functions for random numbers
 const randomNumInRange = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -50,21 +57,46 @@ enemy.addToFleet("Alien Ship 3");
 enemy.addToFleet("Alien Ship 4");
 enemy.addToFleet("Alien Ship 5");
 enemy.addToFleet("Alien Ship 6");
-// console.log(enemy.alienFleet[1].name);
+// console.log(enemy)
 
-const beginBattle = () => {
-  for (let i = 0; i < enemy.alienFleet.length; i++) {
+// loop through alien ships
+const battleAliens = () => {
+  let aliens = enemy.alienFleet;
+  for (let i = 0; i < aliens.length; i++) {
+    // if my ship hull becomes < 1 we will stop the loop and GAMEOVER
     if (myShip.hull < 1) {
+      console.log("GAME OVER");
       break;
     }
 
-    // we go first
-    myShip.ussAttack(enemy.alienFleet[i]);
+    for (let j = 0; j < 100; j++) {
+      // we go first - ussAttack()
+      myShip.ussAttack(aliens[i]);
+      // check if alien.hull[i] < 1 - if yes, break
+      if (aliens[i].hull < 1) {
+        console.log(aliens[i].name + " -- You've been DESTROYED");
+        break;
+      }
+      // attack next ship
 
-    // check if enemy hull < 1
+      // else - alienAttack()
+      aliens[i].alienAttack(myShip);
+      if (myShip.hull < 1) {
+        console.log(myShip.name + " You've been DEFEATED");
+        console.log("GAME OVER");
+        break;
+      }
+
+      // check if myShip.hull < 1
+    }
+
+    // if myShip retreats - GAMEOVER
+    //
+    // if aliens are ALL defeated - WE WIN
+
+    // Play again?
   }
 };
-
-beginBattle();
-
-// console.log(enemy.alienFleet);
+battleAliens();
+console.log(enemy.alienFleet);
+console.log(myShip);

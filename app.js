@@ -64,39 +64,42 @@ const battleAliens = () => {
   let aliens = enemy.alienFleet;
   for (let i = 0; i < aliens.length; i++) {
     // if my ship hull becomes < 1 we will stop the loop and GAMEOVER
-    if (myShip.hull < 1) {
+    if (myShip.hull <= 0) {
       console.log("GAME OVER");
+      enemy.defeated = false;
       break;
+    } else if (aliens[i].hull <= 0) {
+      console.log("You have been defeated");
     }
 
-    for (let j = 0; j < 100; j++) {
-      // we go first - ussAttack()
+    let continueBattle = true;
+
+    // start while loop
+    while (continueBattle) {
+      // attack aliens
       myShip.ussAttack(aliens[i]);
-      // check if alien.hull[i] < 1 - if yes, break
-      if (aliens[i].hull < 1) {
-        console.log(aliens[i].name + " -- You've been DESTROYED");
+      // check if alien is defeated
+      if (aliens[i].hull <= 0) {
+        console.log(`${aliens[i].name} You have been defeated`);
         break;
       }
-      // attack next ship
-
-      // else - alienAttack()
       aliens[i].alienAttack(myShip);
-      if (myShip.hull < 1) {
+      // check if I am defeated
+      if (myShip.hull <= 0) {
         console.log(myShip.name + " You've been DEFEATED");
-        console.log("GAME OVER");
         break;
       }
-
-      // check if myShip.hull < 1
     }
-
-    // if myShip retreats - GAMEOVER
-    //
-    // if aliens are ALL defeated - WE WIN
-
-    // Play again?
+    // end while loop
+  }
+  // check if aliens are defeated
+  if (myShip.hull >= 1) {
+    enemy.defeated = true;
+    console.log("You have defeated all the ALIENS");
+  } else {
+    enemy.defeated = false;
+    // console.log("You Lose, Game Over");
   }
 };
 battleAliens();
-console.log(enemy.alienFleet);
-console.log(myShip);
+console.log(enemy.defeated);

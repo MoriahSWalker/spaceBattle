@@ -76,14 +76,21 @@ const battleAliens = () => {
 
     // start while loop
     while (continueBattle) {
-      // attack aliens
+      // we go first attack aliens
       myShip.ussAttack(aliens[i]);
+      // log attack
+      console.log(`attacking ${aliens[i].name}`);
+
       // check if alien is defeated
       if (aliens[i].hull <= 0) {
+        // announce defeat
         console.log(`${aliens[i].name} You have been defeated`);
         break;
+      } else if (aliens[i]) {
+        aliens[i].alienAttack(myShip);
+        console.log("Take that USS Hello World!! pew pew");
       }
-      aliens[i].alienAttack(myShip);
+
       // check if I am defeated
       if (myShip.hull <= 0) {
         console.log(myShip.name + " You've been DEFEATED");

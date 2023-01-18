@@ -59,7 +59,10 @@ enemy.addToFleet("Alien Ship 5");
 enemy.addToFleet("Alien Ship 6");
 // console.log(enemy)
 
-// loop through alien ships
+// get elments to update textContent
+let alienOne = document.querySelector("a-1");
+
+// Funtion for battle
 const battleAliens = () => {
   let aliens = enemy.alienFleet;
   for (let i = 0; i < aliens.length; i++) {

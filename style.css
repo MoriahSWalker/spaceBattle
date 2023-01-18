@@ -1,10 +1,53 @@
 body{
-    background-color: black;
+    background-image: url(./Images/space_background.avif);
+    padding: 30px;
+    margin: 35px
 }
 
 h1{
+    margin-bottom: 75px;
     color: whitesmoke;
-    text-align: center;
     font-size: 50px;
 }
 
+
+.container{
+    
+    display: grid;
+    justify-content: center;
+    grid-template-rows: 150px 150px 150px 150px 150px 150px 150px;
+    grid-template-columns: 150px 150px 150px 150px 150px 150px 150px;
+    grid-gap: 1em 3em;
+    color: whitesmoke;
+    background-color: rgba(0,0,0,.75)
+    
+}
+
+.ship-0{
+    grid-row: 3/4;
+    
+}
+
+.ship-1{
+    grid-area: 2/4/4/6;
+}
+
+.ship-2{
+    grid-area: 1/6/3/7
+}
+
+.ship-3{
+    grid-area: 3/6/5/7;
+}
+
+.ship-4{
+    grid-area: 4/4/6/6
+}
+
+.ship-5{
+    grid-area: 5/-3/6/7
+}
+
+.ship-6{
+    grid-area: 6/4/7/5;
+}

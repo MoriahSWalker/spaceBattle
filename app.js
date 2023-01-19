@@ -58,9 +58,14 @@ enemy.addToFleet("Alien Ship 4");
 enemy.addToFleet("Alien Ship 5");
 enemy.addToFleet("Alien Ship 6");
 // console.log(enemy)
-
-// get elments to update textContent
-let alienOne = document.querySelector("a-1");
+// loop through alien hull el and set value
+// select hull el
+let hulls = document.querySelectorAll(".alien-ship-Hull");
+let ussHull = document.getElementById("ussShipHull");
+console.log(hulls);
+for (let i = 0; i < enemy.alienFleet.length; i++) {
+  hulls[i].textContent = `hull: ${enemy.alienFleet[i].hull}`;
+}
 
 // Funtion for battle
 const battleAliens = () => {
@@ -81,6 +86,9 @@ const battleAliens = () => {
     while (continueBattle) {
       // we go first attack aliens
       myShip.ussAttack(aliens[i]);
+      // change html of ship
+      hulls[i].textContent = `hull: ${aliens[i].hull}`;
+
       // log attack
       console.log(`attacking ${aliens[i].name}`);
 
@@ -91,6 +99,7 @@ const battleAliens = () => {
         break;
       } else if (aliens[i]) {
         aliens[i].alienAttack(myShip);
+        ussHull.textContent = `hull: ${myShip.hull}`;
         console.log("Take that USS Hello World!! pew pew");
       }
 
@@ -103,6 +112,7 @@ const battleAliens = () => {
     // end while loop
   }
   // check if aliens are defeated
+
   if (myShip.hull >= 1) {
     enemy.defeated = true;
     console.log("You have defeated all the ALIENS");
